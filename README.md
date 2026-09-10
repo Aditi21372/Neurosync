@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# NeuroSync: Empathic AI for Inclusive Co-Design
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A full-stack empathic-AI platform that fuses **facial and vocal emotion signals in real time** to detect stress and engagement, then adapts the experience through a conversational companion and VR interaction modalities.
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-19-20232A?style=flat&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Fusion%20Model-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+![Hume EVI](https://img.shields.io/badge/Voice-Hume%20EVI-FF6B6B)
 
-In the project directory, you can run:
+## What it does
 
-### `npm start`
+- 🎥 **Facial emotion capture** in-browser via camera
+- 🎙️ **Vocal emotion analysis** through the Hume Empathic Voice Interface (EVI)
+- 🧠 **Multi-modal fusion network** (PyTorch): face + voice embeddings with intensity weighting and an adapter layer, predicting stress/engagement signals
+- 💬 **Conversational companion** (chat modality) that adapts to the user's state
+- 🥽 **VR interaction modality** for immersive co-design sessions
+- 📈 **Live dashboards**: emotion summaries, trend plots, expression levels
+- 🧩 **Inclusive co-design flow**: cognitive preference forms, personalization, task breakdown and checklists tuned to the user's state
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Architecture
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+   Browser (React 19 + TypeScript)
+   ├── CameraCapture  ──► facial emotion scores ─┐
+   ├── HumeEVI        ──► vocal emotion scores ──┤
+   │                                             ▼
+   │                              neuro-api (FastAPI/Python)
+   │                              MultiModalFusionNetwork (PyTorch)
+   │                              face_emb + voice_emb + context
+   │                              → adapter → stress/engagement outputs
+   │                                             │
+   └── Chat (NURO companion) ◄───────────────────┘
+        VR lounge ◄── session state + emotion trends
+```
 
-### `npm test`
+Trained fusion model weights ship in `neuro-api/fusion_model_weights.pt`; evaluation targets: **MSE 0.0032, cosine similarity 0.9877** on held-out data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Quick start
 
-### `npm run build`
+```bash
+git clone https://github.com/Aditi21372/Neurosync.git
+cd Neurosync
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Web client
+npm install
+cp .env.example .env
+npm start                      # http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Emotion fusion API (separate terminal)
+cd neuro-api
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+uvicorn API:app --reload
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Built by
 
-### `npm run eject`
+Team of 4, Jan to May 2025: [Aditi](https://github.com/Aditi21372), [theaadya](https://github.com/theaadya), [Kanakyadav88](https://github.com/Kanakyadav88), and teammates. Full commit history preserved from the original team repository.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Built by [@Aditi21372](https://github.com/Aditi21372) · [More projects](https://github.com/Aditi21372?tab=repositories)
